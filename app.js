@@ -9,7 +9,9 @@ const stationListEl = document.getElementById("station-list");
 const countryFilterEl = document.getElementById("country-filter");
 const searchEl = document.getElementById("search");
 const playPauseBtn = document.getElementById("play-pause-btn");
+const playPauseIcon = document.getElementById("play-pause-icon");
 const playerStationName = document.getElementById("player-station-name");
+const playerStatusEl = document.getElementById("player-status");
 const tabButtons = document.querySelectorAll(".tabs button");
 
 let stations = [];
@@ -81,19 +83,35 @@ async function searchStations(name) {
 }
 
 // ---- 재생 ----
-const playIcon = document.getElementById("play-icon");
-const pauseIcon = document.getElementById("pause-icon");
+const PLAY_SHAPE = '<polygon points="6,4 20,12 6,20" />';
+const PAUSE_SHAPE = '<rect x="5" y="4" width="5" height="16" /><rect x="14" y="4" width="5" height="16" />';
 
 function setPlayIcon(isPlaying) {
-  playIcon.hidden = isPlaying;
-  pauseIcon.hidden = !isPlaying;
+  playPauseIcon.innerHTML = isPlaying ? PAUSE_SHAPE : PLAY_SHAPE;
 }
+
+function setStatus(text, kind) {
+  playerStatusEl.textContent = text;
+  playerStatusEl.className = kind;
+}
+
+// 실제 오디오 상태에 아이콘/상태 문구를 동기화 — 재생/정지 버튼이든 새 채널 선택이든 한 곳에서 처리
+audio.addEventListener("playing", () => {
+  setPlayIcon(true);
+  setStatus("스트리밍중", "streaming");
+});
+audio.addEventListener("waiting", () => setStatus("...", "connecting"));
+audio.addEventListener("pause", () => setPlayIcon(false));
+audio.addEventListener("error", () => {
+  setPlayIcon(false);
+  setStatus("접속불가", "error");
+});
 
 function play(station) {
   currentStation = station;
+  setStatus("...", "connecting");
   audio.src = station.streamUrl;
-  audio.play();
-  setPlayIcon(true);
+  audio.play().catch(() => setStatus("접속불가", "error"));
   playerStationName.textContent = station.name;
   render();
 }
@@ -101,11 +119,9 @@ function play(station) {
 playPauseBtn.addEventListener("click", () => {
   if (!currentStation) return;
   if (audio.paused) {
-    audio.play();
-    setPlayIcon(true);
+    audio.play().catch(() => setStatus("접속불가", "error"));
   } else {
     audio.pause();
-    setPlayIcon(false);
   }
 });
 
@@ -119,6 +135,7 @@ function render() {
   stationListEl.innerHTML = "";
   filtered.forEach((station) => {
     const li = document.createElement("li");
+    if (currentStation && station.id === currentStation.id) li.classList.add("playing");
 
     const img = document.createElement("img");
     img.src = station.faviconUrl || "icons/icon-192.png";

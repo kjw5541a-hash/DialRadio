@@ -4,8 +4,10 @@
   --fg: #3d3d54;
   --muted: #9092a8;
   --accent: #5b7fe0;
+  --error: #e0615b;
   --shadow-light: #ffffff;
   --shadow-dark: #c3c6d8;
+  --player-bg: #d7dff4; /* 다른 배경과 구분되는 톤 */
 }
 
 * { box-sizing: border-box; }
@@ -141,6 +143,11 @@ header h1 {
   box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
 }
 
+/* 재생 중인 채널 — 테두리 대신 깊이(오목)로 선택 표시 */
+#station-list li.playing {
+  box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+}
+
 #station-list img {
   width: 44px; height: 44px;
   border-radius: 12px;
@@ -177,19 +184,35 @@ header h1 {
   justify-content: space-between;
   padding: 12px 12px 12px 20px;
   border-radius: 24px;
-  background: var(--bg);
+  background: var(--player-bg);
   box-shadow: 6px 6px 14px var(--shadow-dark), -6px -6px 14px var(--shadow-light);
 }
 
-#player-station-name {
+#player-info {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+#player-station-name {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 13px;
+  font-weight: 500;
   color: var(--fg);
 }
+
+#player-status {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+#player-status.connecting { color: var(--muted); }
+#player-status.streaming { color: var(--accent); }
+#player-status.error { color: var(--error); }
 
 #play-pause-btn {
   width: 52px; height: 52px;

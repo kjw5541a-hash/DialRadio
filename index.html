@@ -34,10 +34,12 @@
   </div>
 
   <footer id="player-bar">
-    <span id="player-station-name">재생 중인 채널 없음</span>
+    <div id="player-info">
+      <span id="player-station-name">재생 중인 채널 없음</span>
+      <span id="player-status"></span>
+    </div>
     <button id="play-pause-btn" aria-label="재생/정지">
-      <svg id="play-icon" viewBox="0 0 24 24" width="18" height="18"><polygon points="6,4 20,12 6,20" /></svg>
-      <svg id="pause-icon" viewBox="0 0 24 24" width="18" height="18" hidden><rect x="5" y="4" width="5" height="16" /><rect x="14" y="4" width="5" height="16" /></svg>
+      <svg id="play-pause-icon" viewBox="0 0 24 24" width="18" height="18"><polygon points="6,4 20,12 6,20" /></svg>
     </button>
   </footer>
 
