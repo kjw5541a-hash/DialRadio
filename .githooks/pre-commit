@@ -1,0 +1,11 @@
+#!/bin/bash
+# index.html/app.js/style.css/manifest.json/sw.js 변경 시 sw.js 캐시 버전을 자동으로 커밋 시각으로 갱신.
+set -e
+cd "$(git rev-parse --show-toplevel)"
+
+if git diff --cached --name-only | grep -qE '^(index\.html|app\.js|style\.css|manifest\.json|sw\.js)$'; then
+  VERSION=$(date +%s)
+  sed -i '' -E "s/const VERSION = \"[^\"]*\";/const VERSION = \"$VERSION\";/" sw.js
+  git add sw.js
+  echo "sw.js 캐시 버전 -> $VERSION"
+fi
