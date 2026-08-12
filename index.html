@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>DialRadio</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#0F0F0E" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>DialRadio</h1>
+  </header>
+
+  <main>
+    <input id="search" type="search" placeholder="채널 검색" />
+
+    <div id="country-filter" class="chip-row"></div>
+
+    <nav class="tabs">
+      <button data-tab="list" class="active">전체</button>
+      <button data-tab="favorites">즐겨찾기</button>
+    </nav>
+
+    <ul id="station-list"></ul>
+  </main>
+
+  <footer id="player-bar">
+    <span id="player-station-name">재생 중인 채널 없음</span>
+    <button id="play-pause-btn">▶</button>
+  </footer>
+
+  <audio id="audio"></audio>
+
+  <script src="app.js"></script>
+</body>
+</html>
