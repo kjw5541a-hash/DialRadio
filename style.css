@@ -1,10 +1,11 @@
 :root {
-  color-scheme: dark;
-  --bg: #0F0F0E;
-  --fg: #FCFCF9;
-  --muted: #8a8a86;
-  --accent: #f5c542;
-  --border: #262624;
+  color-scheme: light;
+  --bg: #e8ebf5;
+  --fg: #3d3d54;
+  --muted: #9092a8;
+  --accent: #5b7fe0;
+  --shadow-light: #ffffff;
+  --shadow-dark: #c3c6d8;
 }
 
 * { box-sizing: border-box; }
@@ -14,103 +15,165 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: system-ui, -apple-system, sans-serif;
-  padding-bottom: 72px; /* player-bar 높이만큼 여백 */
+  padding-bottom: 88px; /* player-bar 높이만큼 여백 */
+}
+
+/* 뉴모피즘 볼록(raised) / 오목(pressed) 기본 그림자 */
+.neu-raised {
+  background: var(--bg);
+  box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+}
+
+.neu-pressed {
+  background: var(--bg);
+  box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
 }
 
 header {
-  padding: 16px;
-  border-bottom: 1px solid var(--border);
+  padding: 20px 16px 8px;
 }
 
-header h1 { margin: 0; font-size: 20px; }
+header h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+}
 
-main { padding: 12px 16px; }
+main { padding: 16px; }
 
 #search {
   width: 100%;
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: #1a1a18;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: none;
+  background: var(--bg);
   color: var(--fg);
   font-size: 16px; /* iOS 확대 방지 */
+  box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
 }
+
+#search::placeholder { color: var(--muted); }
 
 .chip-row {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   overflow-x: auto;
-  padding: 10px 0;
+  padding: 16px 2px;
 }
 
 .chip-row button {
   flex: none;
-  padding: 6px 12px;
+  padding: 8px 16px;
   border-radius: 999px;
-  border: 1px solid var(--border);
-  background: #1a1a18;
+  border: none;
+  background: var(--bg);
   color: var(--fg);
   font-size: 12px;
+  box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
 }
 
-.chip-row button.active { background: var(--accent); color: #000; border-color: var(--accent); }
+.chip-row button.active {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: inset 3px 3px 6px rgba(0,0,0,0.2), inset -3px -3px 6px rgba(255,255,255,0.15);
+}
 
 .tabs {
   display: flex;
-  gap: 8px;
-  margin: 8px 0;
+  gap: 10px;
+  margin: 4px 2px 16px;
+  padding: 6px;
+  border-radius: 16px;
+  background: var(--bg);
+  box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
 }
 
 .tabs button {
-  padding: 8px 14px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
+  flex: 1;
+  padding: 10px;
+  border-radius: 12px;
+  border: none;
   background: transparent;
   color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
 }
 
-.tabs button.active { color: var(--fg); border-color: var(--fg); }
+.tabs button.active {
+  background: var(--bg);
+  color: var(--fg);
+  box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
+}
 
-#station-list { list-style: none; margin: 0; padding: 0; }
+#station-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
 
 #station-list li {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: var(--bg);
+  box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
 }
 
 #station-list img {
-  width: 40px; height: 40px;
-  border-radius: 8px;
-  background: #1a1a18;
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--bg);
   object-fit: cover;
+  box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
 }
 
 .station-info { flex: 1; min-width: 0; }
 .station-info .name { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.station-info .meta { font-size: 12px; color: var(--muted); }
+.station-info .meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
-.fav-btn { background: none; border: none; font-size: 18px; color: var(--muted); }
-.fav-btn.active { color: var(--accent); }
+.fav-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg);
+  font-size: 15px;
+  color: var(--muted);
+  box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
+}
+
+.fav-btn.active {
+  color: #fff;
+  background: var(--accent);
+  box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2), inset -2px -2px 4px rgba(255,255,255,0.15);
+}
 
 #player-bar {
   position: fixed;
-  bottom: 0; left: 0; right: 0;
+  bottom: 16px; left: 16px; right: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 16px;
-  background: rgba(15,15,14,0.9);
-  backdrop-filter: blur(12px);
-  border-top: 1px solid var(--border);
+  padding: 12px 12px 12px 20px;
+  border-radius: 24px;
+  background: var(--bg);
+  box-shadow: 6px 6px 14px var(--shadow-dark), -6px -6px 14px var(--shadow-light);
+}
+
+#player-station-name {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  color: var(--fg);
 }
 
 #play-pause-btn {
-  width: 40px; height: 40px;
+  width: 52px; height: 52px;
   border-radius: 50%;
   border: none;
   background: var(--accent);
-  font-size: 16px;
+  color: #fff;
+  font-size: 18px;
+  box-shadow: 4px 4px 10px var(--shadow-dark), -4px -4px 10px var(--shadow-light);
 }
