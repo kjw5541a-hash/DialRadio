@@ -81,11 +81,19 @@ async function searchStations(name) {
 }
 
 // ---- 재생 ----
+const playIcon = document.getElementById("play-icon");
+const pauseIcon = document.getElementById("pause-icon");
+
+function setPlayIcon(isPlaying) {
+  playIcon.hidden = isPlaying;
+  pauseIcon.hidden = !isPlaying;
+}
+
 function play(station) {
   currentStation = station;
   audio.src = station.streamUrl;
   audio.play();
-  playPauseBtn.textContent = "⏸";
+  setPlayIcon(true);
   playerStationName.textContent = station.name;
   render();
 }
@@ -94,10 +102,10 @@ playPauseBtn.addEventListener("click", () => {
   if (!currentStation) return;
   if (audio.paused) {
     audio.play();
-    playPauseBtn.textContent = "⏸";
+    setPlayIcon(true);
   } else {
     audio.pause();
-    playPauseBtn.textContent = "▶";
+    setPlayIcon(false);
   }
 });
 
