@@ -225,10 +225,6 @@ header h1 {
   box-shadow: 4px 4px 10px var(--shadow-dark), -4px -4px 10px var(--shadow-light);
 }
 
-/* 음각(engraved) 아이콘: 버튼과 같은 색으로 채우고 그림자로 파인 것처럼 표현 */
 #play-pause-btn svg {
-  fill: var(--accent);
-  filter:
-    drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.45))
-    drop-shadow(-1px -1px 1px rgba(255, 255, 255, 0.5));
+  fill: #fff;
 }

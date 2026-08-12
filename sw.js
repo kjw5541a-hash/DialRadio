@@ -1,4 +1,4 @@
-const VERSION = "1786521221"; // pre-commit 훅이 커밋 시각으로 자동 치환
+const VERSION = "1786522410"; // pre-commit 훅이 커밋 시각으로 자동 치환
 const CACHE_NAME = `dialradio-${VERSION}`;
 const APP_SHELL = ["./", "index.html", "style.css", "app.js", "manifest.json"];
 
